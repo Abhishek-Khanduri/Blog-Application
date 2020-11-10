@@ -1,5 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from main import models
+from main import forms
+from django.http import HttpResponseRedirect
 
 
 def index(request):
@@ -39,13 +41,24 @@ def create_article(request):
         context["success"]=True
     return render(request,'main/create_article.html',context)
 def create_author(request):
+    create_auth = forms.CreateAuthor()
     if request.method == "POST":
-        author_data = {
-            "name": request.POST['name']
-        }
-        models.Author.objects.create(**author_data)
+        authorForm = forms.CreateAuthor(request.POST)
+        if authorForm.is_valid():
+            authorForm.save()
+            return HttpResponseRedirect('/article')
+
+    context ={
+        "create_auth":create_auth
+    }
+    #if request.method == "POST":
+        #author_data = {
+            #"name": request.POST['name']
+        #}
+        #models.Author.objects.create(**author_data)
         #context["succcess"]=True
-    return render(request,'main/create_author.html')
+    return render(request,'main/create_author.html',context)
+
 def home(request):
     return render(request,'main/home.html')
 
