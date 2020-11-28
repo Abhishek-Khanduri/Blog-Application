@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 from django.http import HttpResponseRedirect
-from authentication import forms
+from django.shortcuts import redirect
+from . import forms
 from main import models
 def register(request):
     loginform = UserCreationForm()
@@ -40,9 +42,11 @@ def login(request):
                 password=loginform.cleaned_data['password']
                 user = authenticate(username = username,password = password)
                 if user:
-                    HttpResponseRedirect('/')
+                    auth_login(request, user)
+                    print('logged in')
+                    return redirect('/')
                 else:
-                    pass
+                    print('invalid credentials')
         context ={
             "forms1" : loginForm 
             }
