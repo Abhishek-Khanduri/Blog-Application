@@ -71,3 +71,14 @@ def view_authors(request):
             "authors" : authors
     }
     return render(request,'main/view_authors.html',context)
+
+def search(request):
+    if request.method == 'GET':
+        searchItem = request.GET.get('search')
+        try:
+            searchFound = models.Article.objects.filter(category__icontains=searchItem)
+            return render(request, 'main/search.html', {"searchItems":searchFound,"term":searchItem}) 
+        except:
+            return render(request,"main/search.html",{'searchItems':searchFound,"term":searchItem})
+    else:
+        return render(request, 'main/search.html',{"term":searchItem})

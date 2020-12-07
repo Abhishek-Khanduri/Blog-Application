@@ -8,5 +8,6 @@ urlpatterns = [
     path('article',views.create_article,name = 'create_article'),
     path('author',views.create_author,name = 'create_author'),
     path('',views.home,name = 'home'),
-    path('view_authors',views.view_authors,name = 'view_authors')
+    path('view_authors',views.view_authors,name = 'view_authors'),
+    path('search',views.search,name = 'search')
 ]

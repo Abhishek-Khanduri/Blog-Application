@@ -34,14 +34,17 @@
             <a class="nav-link" href="{% url 'index' %}">Top Blogs</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'register' %}">Register</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="{% url 'create_article' %}">Write Blog</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'view_authors' %}">Our Authors</a>
           </li>
+          <li class="nav-item">
+            <form method="GET" action="{% url 'search' %}" name="form">
+              <input type="text" name="search" placeholder="Search"/>
+            </form>
+          </li>
+
         </ul>
       </div>
 
