@@ -33,13 +33,16 @@ def create_article(request):
     if request.method == "POST":
         article_data = {
             "title": request.POST['title'],
-            "content": request.POST['content']
+            "content": request.POST['content'],
+            "category":request.POST['category']
         }
         article = models.Article.objects.create(**article_data)
         author =  models.Author.objects.filter(pk = request.POST['author'])
         article.authors.set(author)
         context["success"]=True
     return render(request,'main/create_article.html',context)
+
+
 def create_author(request):
     create_auth = forms.CreateAuthor()
     if request.method == "POST":
