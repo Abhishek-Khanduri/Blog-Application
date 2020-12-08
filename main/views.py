@@ -2,6 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from main import models
 from main import forms
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -25,6 +26,8 @@ def author(request,pk):
 
         }
         return render(request,'main/author.html',context)
+
+@login_required(login_url='/login/')
 def create_article(request):
     authors = models.Author.objects.all()
     context={
@@ -65,6 +68,7 @@ def create_author(request):
 def home(request):
     return render(request,'main/home.html')
 
+@login_required(login_url='/login/')
 def view_authors(request):
     authors = models.Author.objects.all()
     context={
@@ -72,6 +76,7 @@ def view_authors(request):
     }
     return render(request,'main/view_authors.html',context)
 
+@login_required(login_url='/login/')
 def search(request):
     if request.method == 'GET':
         searchItem = request.GET.get('search')

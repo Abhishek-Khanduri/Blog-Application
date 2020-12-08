@@ -26,7 +26,6 @@ def register(request):
                 }
             models.Author.objects.create(**author_data1)
                 
-
             return HttpResponseRedirect('/')
     context ={
         "forms" : loginform 
